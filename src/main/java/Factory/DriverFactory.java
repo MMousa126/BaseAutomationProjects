@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 /* This for parallel execution and thread local */
@@ -30,6 +31,17 @@ public class DriverFactory {
                 break;
             case "safari":
                 driverThreadLocal.set(new SafariDriver());
+
+            case "chrome-headless":
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                options.addArguments("--start-maximized");
+                driverThreadLocal.set(new ChromeDriver(options));
+            case "edge-headless":
+                EdgeOptions edgeoptions = new EdgeOptions();
+                edgeoptions.addArguments("--headless");
+                edgeoptions.addArguments("--start-maximized");
+                driverThreadLocal.set(new EdgeDriver(edgeoptions));
             default:
 //                FirefoxOptions firefoxOptions = new FirefoxOptions();
 //                firefoxOptions.addArguments("--width=1680");

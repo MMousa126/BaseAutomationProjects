@@ -161,9 +161,19 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs-prebuilt -->
 
 
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>phantomjs</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>phantomjs-prebuilt</artifactId>
+            <version>2.1.16</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -252,6 +262,11 @@
             <artifactId>tess4j</artifactId>
             <version>5.9.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs -->
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs -->
+
+
 
 
 
