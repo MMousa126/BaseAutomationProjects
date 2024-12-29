@@ -31,17 +31,19 @@ public class DriverFactory {
                 break;
             case "safari":
                 driverThreadLocal.set(new SafariDriver());
-
+                break;
             case "chrome-headless":
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--headless");
                 options.addArguments("--start-maximized");
                 driverThreadLocal.set(new ChromeDriver(options));
+                break;
             case "edge-headless":
                 EdgeOptions edgeoptions = new EdgeOptions();
                 edgeoptions.addArguments("--headless");
                 edgeoptions.addArguments("--start-maximized");
                 driverThreadLocal.set(new EdgeDriver(edgeoptions));
+                break;
             default:
 //                FirefoxOptions firefoxOptions = new FirefoxOptions();
 //                firefoxOptions.addArguments("--width=1680");
