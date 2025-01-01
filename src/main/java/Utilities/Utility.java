@@ -493,11 +493,12 @@ public class Utility {
         return files[0];
     }
 
-    // we want to make a session for login instead of every time i have to login i will login inside before test
-    // so i don't need to login every time using cookies
+    // we want to make a session for login instead of every time I have to log in I will log in inside before test
+    // So I don't need to log in every time using cookies
 
     /* Take all Cookies from The Website */
     public static Set<Cookie> GetAllCookies(WebDriver driver) {
+
         return driver.manage().getCookies();
     }
 
@@ -506,6 +507,15 @@ public class Utility {
         for (Cookie cookie : cookies) {
             driver.manage().addCookie(cookie);
         }
+    }
+    public static void DeleteCookies(WebDriver driver, Set<Cookie> cookies) {
+        for (Cookie cookie : cookies) {
+            driver.manage().deleteCookie(cookie);
+        }
+    }
+
+    public static void DeleteAllCookies(WebDriver driver, Set<Cookie> cookies) {
+            driver.manage().deleteAllCookies();
     }
 
 
