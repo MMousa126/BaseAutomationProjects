@@ -1,7 +1,6 @@
 package Factory;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
-import org.checkerframework.checker.optional.qual.OptionalBottom;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +9,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-/*  */
+/* This for parallel execution and thread local */
 public class DriverFactoryCucumber extends AbstractTestNGCucumberTests {
 
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();

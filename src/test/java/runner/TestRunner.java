@@ -1,6 +1,5 @@
 package runner;
 
-import Factory.DriverFactory;
 import Factory.DriverFactoryCucumber;
 import io.cucumber.testng.CucumberOptions;
 
@@ -11,7 +10,9 @@ public class TestRunner extends AbstractTestNGCucumberTests
  */
 @CucumberOptions(features = "src/test/java/features"
         ,glue = {"steps"}
-        ,plugin = {"pretty","html:target/AllureResults"})
+        ,plugin = {"pretty"
+        ,"html:test-outputs/target/AllureResults/html-report", // HTML report in the desired path
+        "json:test-outputs/target/AllureResults/allure-results/cucumber.json"})
 public class TestRunner extends DriverFactoryCucumber {
 
 
