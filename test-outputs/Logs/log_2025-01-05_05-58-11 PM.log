@@ -1,0 +1,1 @@
+[ERROR] 05-01-2025 17:58:11 [main] [steps.EmployeeLogin.tearDown(EmployeeLogin.java:43)] - Error while closing the browser: Cannot invoke "org.openqa.selenium.WebDriver.quit()" because the return value of "Factory.DriverFactory.GetThreadDriver()" is null
