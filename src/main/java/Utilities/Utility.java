@@ -4,18 +4,15 @@ import com.assertthat.selenium_shutterbug.core.Capture;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
 import io.qameta.allure.Allure;
 
-
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
+
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -277,19 +274,7 @@ public class Utility {
 
     }
 
-    public static void TakingScreenShotWithURL(WebDriver driver, String ScreenShootName) {
 
-        try {
-            Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
-                    .takeScreenshot(driver);
-
-            ImageIO.write(screenshot.getImage(),"PNG", new File((ScreenShoot_Path + ScreenShootName + "-" + GetTimeStamp() + ".png")));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static void WaitUntilTheElementIsSelected(WebDriver driver, By locator){
 

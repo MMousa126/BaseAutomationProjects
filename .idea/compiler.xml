@@ -7,8 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SwagLabs" />
-        <module name="BaseScript" />
         <module name="SOCPA_CRM" />
+      </profile>
+      <profile name="Annotation profile for BasicCode" enabled="true">
+        <sourceOutputDir name="test-outputs/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="test-outputs/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="BaseScript" />
       </profile>
     </annotationProcessing>
   </component>
