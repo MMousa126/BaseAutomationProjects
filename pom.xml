@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>BaseScript</artifactId>
+    <artifactId>BasicScriptForAutomation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testNGVersion>7.10.2</testNGVersion>
         <webdrivermanagerVersion>5.8.0</webdrivermanagerVersion>
@@ -20,7 +20,7 @@
         <log4j2Version>2.23.1</log4j2Version>
         <GSONVersion>2.11.0</GSONVersion>
         <FakerVersion>1.0.2</FakerVersion>
-        <AllureVersion>2.29.1</AllureVersion>
+        <AllureVersion>2.28.0</AllureVersion>
         <commoneIO>2.16.0</commoneIO>
         <aspectj.version>1.9.20.1</aspectj.version>
         <seleniumShutterBug>1.6</seleniumShutterBug>
@@ -30,8 +30,10 @@
         <poi_ooxml_schemas>4.1.2</poi_ooxml_schemas>
         <poi_ooxml>5.3.0</poi_ooxml>
         <!-- this for running using maven configuration -->
-        <pleaseForRunnerPath>TestRunner/filename</pleaseForRunnerPath>
+        <!--        <pleaseForRunnerPath>TestRunner/filename</pleaseForRunnerPath>-->
+
     </properties>
+
     <profiles>
         <profile>
             <id>profileName</id>
@@ -62,7 +64,7 @@
                             </argLine>
                             <suiteXmlFiles>
                                 <suiteXmlFile>
-                                    ${pleaseForRunnerPath}
+                                    <!--                                    ${pleaseForRunnerPath}-->
                                 </suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
@@ -83,8 +85,6 @@
             </build>
         </profile>
     </profiles>
-
-
     <dependencies>
 
 
@@ -94,13 +94,6 @@
             <artifactId>selenium-java</artifactId>
             <version>${seleniumVersion}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-core -->
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-core</artifactId>
-            <version>3.9.9</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -134,14 +127,17 @@
             <version>30.0.4</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.3.0</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>1.5.4</version>
+        </dependency>
 
         <dependency>
             <groupId>com.assertthat</groupId>
@@ -157,19 +153,9 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs-prebuilt -->
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 
 
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>phantomjs</artifactId>
-            <version>2.1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>phantomjs-prebuilt</artifactId>
-            <version>2.1.16</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -212,7 +198,6 @@
             <version>${slf4jAPIVersion}</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -238,28 +223,19 @@
             <artifactId>allure-testng</artifactId>
             <version>${AllureVersion}</version>
         </dependency>
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.4.0</version>
-            <scope>compile</scope>
+            <version>${restassuredversion}</version>
+            <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>5.4.0</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-
-
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured-common -->
         <dependency>
             <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured-common</artifactId>
+            <artifactId>rest-assured</artifactId>
             <version>5.5.0</version>
+            <scope>compile</scope>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
         <dependency>
@@ -268,14 +244,7 @@
             <version>5.9.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs -->
-        <!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs -->
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
-        <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>1.5.4</version>
-        </dependency>
+
     </dependencies>
 
 </project>
