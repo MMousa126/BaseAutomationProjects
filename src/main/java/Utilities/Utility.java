@@ -9,6 +9,7 @@ import io.restassured.response.Response;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
 
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -40,7 +41,6 @@ public class Utility {
                 .until(ExpectedConditions.elementToBeClickable(locator));
 
         driver.findElement(locator).click();
-
     }
     public static void Clicking_OnElementWithoutAnyWait(WebDriver driver, By locator) {
         driver.findElement(locator).click();
