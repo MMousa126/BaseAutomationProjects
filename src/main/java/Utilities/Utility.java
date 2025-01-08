@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 import javax.imageio.ImageIO;
@@ -319,13 +320,26 @@ public class Utility {
         try {
             File sourcefile = (driver.findElement(locator)).getScreenshotAs(OutputType.FILE);
 
-            File destinationfile = new File(ScreenShoot_Path + ScreenShootName + "-" + ".png");
+            File destinationfile = new File(ScreenShoot_Path + ScreenShootName + "-" + GetTimeStamp() + ".png");
 
             FileHandler.copy(sourcefile, destinationfile);
 
             Allure.addAttachment(ScreenShootName, Files.newInputStream(Path.of(destinationfile.getPath())));
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void TakingScreenShotForSpecificElementWithYandex(WebDriver driver, By locator, String ScreenShootName) {
+        try {
+            Screenshot screenshot = new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver,ByToWebElement(driver,locator));
+
+            BufferedImage bufferedImage = screenshot.getImage();
+            File file = new File(ScreenShoot_Path + ScreenShootName + "-" + GetTimeStamp() + ".png");
+            ImageIO.write(bufferedImage,"png",file);
+            Allure.addAttachment(ScreenShootName, Files.newInputStream(Path.of(file.getPath())));
         } catch (Exception e) {
             e.printStackTrace();
         }

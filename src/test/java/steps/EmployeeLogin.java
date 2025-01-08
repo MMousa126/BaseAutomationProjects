@@ -9,6 +9,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +28,7 @@ public class EmployeeLogin {
         DriverFactory.SetupThreadDriver("edge");
         GetThreadDriver().get("https://easyupload.io/");
         GetThreadDriver().navigate().refresh();
-        Utility.takeFullDesktopScreenshot("newphoto");
+        Utility.TakingScreenShotForSpecificElementWithYandex(DriverFactory.GetThreadDriver(), By.cssSelector("button[class=dz-button]"),"newphoto");
 
     }
     @When("user enters username, password and click on Login")
