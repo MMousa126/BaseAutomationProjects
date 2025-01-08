@@ -4,6 +4,7 @@ import Assertion.AssertUtility;
 import Factory.DriverFactory;
 import Utilities.DataUtility;
 import Utilities.LogsUtility;
+import Utilities.Utility;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,6 +23,11 @@ public class EmployeeLogin {
 
     @Given("user is on the CRM Portal")
     public void user_is_on_the_crm_portal() {
+
+        DriverFactory.SetupThreadDriver("edge");
+        GetThreadDriver().get("https://easyupload.io/");
+        GetThreadDriver().navigate().refresh();
+        Utility.takeFullDesktopScreenshot("newphoto");
 
     }
     @When("user enters username, password and click on Login")

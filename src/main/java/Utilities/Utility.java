@@ -14,9 +14,13 @@ import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -273,8 +277,37 @@ public class Utility {
         }
 
     }
+    public static void TakingScreenShotWithURL(WebDriver driver, String ScreenShootName) {
 
+        try {
+            Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+                    .takeScreenshot(driver);
 
+            ImageIO.write(screenshot.getImage(),"PNG", new File((ScreenShoot_Path + ScreenShootName + "-" + GetTimeStamp() + ".png")));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void takeFullDesktopScreenshot(String fileName) {
+
+        try {
+            Robot robot = new Robot();
+            // Capture the screen size
+            Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+
+            // Take the screenshot
+            BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
+            File file = new File(ScreenShoot_Path + fileName + "-" + GetTimeStamp() + ".png");
+            ImageIO.write(screenFullImage, "png", file);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     public static void WaitUntilTheElementIsSelected(WebDriver driver, By locator){
 
