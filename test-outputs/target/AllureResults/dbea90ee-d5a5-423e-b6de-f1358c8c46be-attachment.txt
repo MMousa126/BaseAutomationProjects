@@ -1,0 +1,2 @@
+[INFO] 12-01-2025 16:41:19 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:56)] - Test Case Sun Jan 12 16:41:19 EET 2025
+[INFO] 12-01-2025 16:41:20 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:60)] - Test Case setup passed
