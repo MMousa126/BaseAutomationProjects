@@ -32,7 +32,7 @@ public class newLogin {
     @Test
     public void uploadFile(){
 
-        driver.findElement(By.id("email")).sendKeys("djfksajl@gmail.com");
+//        driver.findElement(By.id("email")).sendKeys("djfksajl@gmail.com");
 
         VisualUtility.TakingScreenShotVTExpected(driver,"screen");
 

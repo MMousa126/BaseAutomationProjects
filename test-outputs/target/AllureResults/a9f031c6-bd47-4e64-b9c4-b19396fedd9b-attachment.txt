@@ -1,5 +1,0 @@
-[INFO] 12-01-2025 15:39:18 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:56)] - Test Case Sun Jan 12 15:39:18 EET 2025
-[INFO] 12-01-2025 15:39:19 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:60)] - Test Case setup passed
-[INFO] 12-01-2025 15:39:19 [main] [org.testng.internal.TestListenerHelper.runTestListeners(TestListenerHelper.java:122)] - Test Case uploadFile has Started
-[INFO] 12-01-2025 15:39:19 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:56)] - Test Case Sun Jan 12 15:39:18 EET 2025
-[INFO] 12-01-2025 15:39:21 [main] [org.testng.internal.invokers.InvokedMethodListenerInvoker.invokeListener(InvokedMethodListenerInvoker.java:60)] - Test Case uploadFile failed
