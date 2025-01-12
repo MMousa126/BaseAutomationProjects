@@ -29,7 +29,6 @@ public class EmployeeLogin {
         GetThreadDriver().get("https://easyupload.io/");
         GetThreadDriver().navigate().refresh();
         Utility.TakingScreenShotForSpecificElementWithYandex(DriverFactory.GetThreadDriver(), By.cssSelector("button[class=dz-button]"),"newphoto");
-
     }
     @When("user enters username, password and click on Login")
     public void user_enters_username_password_and_click_on_login() {

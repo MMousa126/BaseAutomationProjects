@@ -9,13 +9,14 @@ import io.restassured.response.Response;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
 
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
+import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
@@ -34,11 +35,12 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.List;
-
 // this class concerns with any additional function that can helps me (General)
 public class Utility {
 
     private static final String ScreenShoot_Path = "test-outputs/Screenshoots/";
+
+
 
     public static void Clicking_OnElement(WebDriver driver, By locator) {
 
@@ -281,7 +283,7 @@ public class Utility {
     public static void TakingScreenShotWithURL(WebDriver driver, String ScreenShootName) {
 
         try {
-            Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+            Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(200))
                     .takeScreenshot(driver);
 
             ImageIO.write(screenshot.getImage(),"PNG", new File((ScreenShoot_Path + ScreenShootName + "-" + GetTimeStamp() + ".png")));
@@ -385,8 +387,19 @@ public class Utility {
         } catch (Exception e) {
             LogsUtility.LoggerError(e.getMessage());
         }
+    }
 
+    public static void TakingFullScreenShot(WebDriver driver, String screenshotName) {
+        try {
+            BufferedImage screenshot = Shutterbug.shootPage(driver, Capture.FULL_SCROLL).getImage();
 
+            // Save the image using the specified full file path
+            File outputFile = new File(ScreenShoot_Path+screenshotName+".png");
+            ImageIO.write(screenshot, "png", outputFile);
+
+        } catch (Exception e) {
+            LogsUtility.LoggerError(e.getMessage());
+        }
     }
 
     public static void SelectingFromDropDown(WebDriver driver, By locator, String option) {
@@ -549,8 +562,64 @@ public class Utility {
     public static void DeleteAllCookies(WebDriver driver, Set<Cookie> cookies) {
             driver.manage().deleteAllCookies();
     }
+    /**
+     * Function to get the first file name containing a partial name in the specified directory.
+     *
+     * @param directoryPath The path to the directory.
+     * @param partialName   The partial name to search for.
+     * @return The first matching file name, or null if no matches are found.
+     */
+    public static String getFirstFileByPartialName(String directoryPath, String partialName) {
+        File directory = new File(directoryPath);
+        // Ensure the path is a directory
+        if (directory.isDirectory()) {
+            // List files matching the partial name
+            File[] matchingFiles = directory.listFiles((dir, name) -> name.contains(partialName));
 
+            if (matchingFiles != null && matchingFiles.length > 0) {
+                // Return the name of the first matching file
+                return matchingFiles[0].getName();
+            }
+        }
+        // Return null if no matching files are found
+        return null;
+    }
 
+    public static void clearFile(String filePath){
+        try {
+            new File(filePath);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Function to get file names containing a partial name in the specified directory.
+     *
+     * @param directoryPath The path to the directory.
+     * @param partialName   The partial name to search for.
+     * @return An array of matching file names.
+     */
+    public static String[] getFilesByPartialName(String directoryPath, String partialName) {
+        File directory = new File(directoryPath);
+
+        // Ensure the path is a directory
+        if (directory.isDirectory()) {
+            // List files matching the partial name
+            File[] matchingFiles = directory.listFiles((dir, name) -> name.contains(partialName));
+
+            if (matchingFiles != null && matchingFiles.length > 0) {
+                // Convert File array to String array of file names
+                String[] fileNames = new String[matchingFiles.length];
+                for (int i = 0; i < matchingFiles.length; i++) {
+                    fileNames[i] = matchingFiles[i].getName();
+                }
+                return fileNames;
+            }
+        }
+        // Return an empty array if no matching files are found
+        return new String[0];
+    }
     /* Like injecting Registration for the preconditions */
     public static String InjectRequestUsingPostAPI(String postrequest_url, String contantrequesttype, String bodytobeposted) {
 
@@ -565,4 +634,58 @@ public class Utility {
                 .body()
                 .asString();
     }
+
+
+//    public static void takeFullPageScreenshot(WebDriver driver, String ScreenShootName) {
+//        try {
+//            // Cast WebDriver to JavaScriptExecutor
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//            // Get total page height and viewport height
+//            int pageHeight = ((Long) js.executeScript("return document.body.scrollHeight")).intValue();
+//            int viewportHeight = ((Long) js.executeScript("return window.innerHeight")).intValue();
+//
+//            // List to store each viewport screenshot
+//            List<BufferedImage> screenshots = new ArrayList<>();
+//
+//            // Scroll and capture screenshots for each viewport
+//            int scrollPosition = 0;
+//            while (scrollPosition < pageHeight) {
+//                // Scroll to the current position
+//                js.executeScript("window.scrollTo(0, " + scrollPosition + ");");
+//                Thread.sleep(500); // Allow time for the scroll to complete
+//
+//                // Capture the current viewport screenshot
+//                File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//                BufferedImage image = ImageIO.read(screenshotFile);
+//                screenshots.add(image);
+//
+//                // Move to the next scroll position
+//                scrollPosition += viewportHeight;
+//            }
+//
+//            // Combine all screenshots into one
+//            int totalWidth = screenshots.get(0).getWidth();
+//            int totalHeight = pageHeight;
+//            BufferedImage fullImage = new BufferedImage(totalWidth, totalHeight, BufferedImage.TYPE_INT_RGB);
+//
+//            Graphics g = fullImage.getGraphics();
+//            int currentHeight = 0;
+//            for (BufferedImage image : screenshots) {
+//                g.drawImage(image, 0, currentHeight, null);
+//                currentHeight += image.getHeight();
+//            }
+//            g.dispose();
+//
+//            // Save the combined image
+//            File output = new File(baseLineScreenshot + ScreenShootName+ ".png");
+//            ImageIO.write(fullImage, "PNG", output);
+//
+//            System.out.println("Full-page screenshot saved at: " + output.getAbsolutePath());
+//
+//        } catch (Exception e) {
+//            System.err.println("Failed to take full-page screenshot: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//    }
 }
