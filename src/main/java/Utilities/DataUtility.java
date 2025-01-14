@@ -3,6 +3,10 @@ package Utilities;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -54,6 +58,21 @@ public class DataUtility {
         return "";
     }
 
+    public static void writePropertiesDataToFile(String propertiesFilename, String key, String value) {
+        Properties properties = new Properties();
+        try (FileInputStream inputStream = new FileInputStream(TestData_Path + propertiesFilename + ".properties")) {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        try (FileOutputStream outputStream = new FileOutputStream(TestData_Path + propertiesFilename + ".properties")) {
+            properties.setProperty(key, value);
+            properties.store(outputStream, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static FileInputStream getInputStream(String filename){
 
@@ -93,6 +112,89 @@ public class DataUtility {
 
         }
         return strArray;
+    }
+
+    public static void writeDataToExcelFile(String excelFilename, String sheetName, int x, int y, String value) {
+        String filePath = TestData_Path + excelFilename + ".xlsx";
+
+        try (FileInputStream fileInputStream = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(fileInputStream)) {
+
+            Sheet sheet = workbook.getSheet(sheetName);
+            if (sheet == null) {
+                sheet = workbook.createSheet(sheetName);
+            }
+
+            Row row = sheet.getRow(x);
+            if (row == null) {
+                row = sheet.createRow(x);
+            }
+
+            Cell cell = row.getCell(y);
+            if (cell == null) {
+                cell = row.createCell(y);
+            }
+
+            cell.setCellValue(value);
+
+            // Write changes back to the file
+            try (FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {
+                workbook.write(fileOutputStream);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filePath);
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Error reading or writing file: " + filePath);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates an Excel file with configurable parameters.
+     *
+     * @param filename  The file path where the Excel file will be saved.
+     * @param sheetName The name of the sheet to be created.
+     * @param headers   Array of header values to be written to the first row.
+     * @param data      2D array of data to be written to the subsequent rows.
+     */
+    public static void createExcelFile(String filename, String sheetName, String[] headers, String[][] data) {
+        // Create a new workbook
+        Workbook workbook = new XSSFWorkbook();
+
+        // Create a sheet with the specified name
+        Sheet sheet = workbook.createSheet(sheetName);
+
+        // Create the header row
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+        }
+
+        // Fill in the data rows
+        for (int rowIndex = 0; rowIndex < data.length; rowIndex++) {
+            Row row = sheet.createRow(rowIndex + 1); // Start from the second row
+            for (int colIndex = 0; colIndex < data[rowIndex].length; colIndex++) {
+                Cell cell = row.createCell(colIndex);
+                cell.setCellValue(data[rowIndex][colIndex]);
+            }
+        }
+
+        // Save the workbook to the specified file path
+        try  {
+            FileOutputStream fileOut = new FileOutputStream(TestData_Path + filename + ".xlsx");
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            System.err.println("Error while creating Excel file: " + e.getMessage());
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                System.err.println("Error while closing the workbook: " + e.getMessage());
+            }
+        }
     }
 
 

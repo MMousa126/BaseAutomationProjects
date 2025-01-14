@@ -1,6 +1,7 @@
 package PageTesting;
 
 import Factory.DriverFactory;
+import Utilities.DataUtility;
 import Utilities.Utility;
 import Utilities.VisualUtility;
 import com.aventstack.extentreports.ExtentReports;
@@ -15,6 +16,9 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import Listeners.IInvokedMethodListeners;
 import Listeners.ITestResultListeners;
+
+import javax.xml.crypto.Data;
+
 import static Factory.DriverFactory.GetThreadDriver;
 
 @Listeners({IInvokedMethodListeners.class, ITestResultListeners.class})
@@ -33,10 +37,22 @@ public class newLogin {
     public void uploadFile(){
 
 //        driver.findElement(By.id("email")).sendKeys("djfksajl@gmail.com");
+//
+//        VisualUtility.TakingScreenShotVTExpected(driver,"screen");
+//
+//
+//
+//        Assert.assertTrue(VisualUtility.areImageEqual("newScreenshot","screen","diff"));
 
-        VisualUtility.TakingScreenShotVTExpected(driver,"screen");
-
-        Assert.assertTrue(VisualUtility.areImageEqual("newScreenshot","screen","diff"));
+        String[] newHeader = {
+                "ID", "Name","Department"
+        };
+        String[][] newData = {
+                {"1", "John Doe", "HR"},
+                {"2", "Jane Smith", "IT"},
+                {"3", "Emily Davis", "Finance"}
+        };
+        DataUtility.createExcelFile("newFile","newSheet",newHeader,newData);
 
 
 
